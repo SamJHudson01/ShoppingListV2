@@ -3,6 +3,35 @@ import request from 'supertest';
 import app from '../../index'
 
 
+it('should get all shopping list items', async () => {
+    // Add two new items to the database
+    const item1 = {
+        name: 'Apples',
+        quantity: 3,
+        createdat: '2023-08-15T23:00:49.688Z',
+        updatedat: '2023-08-15T23:00:49.688Z'
+    };
+    
+    const item2 = {
+        name: 'Pears',
+        quantity: 5,
+        createdat: '2023-08-15T23:00:49.688Z',
+        updatedat: '2023-08-15T23:00:49.688Z'
+    };
+    
+
+    await request(app).post('/api/shopping-list/add').send(item1);
+    await request(app).post('/api/shopping-list/add').send(item2);
+
+    // Fetch all items
+    const getRes = await request(app).get('/api/shopping-list/get');
+    console.log(getRes.body);
+    expect(getRes.status).toEqual(200);
+
+    // Check that the two items exist in the response
+    const items = getRes.body;
+    expect(items).toEqual(expect.arrayContaining([expect.objectContaining(item1), expect.objectContaining(item2)]));
+});
 it('should delete a shopping list item', async () => {
     // First, add a new item to the database
     const newItem = {
