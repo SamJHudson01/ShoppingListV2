@@ -25,6 +25,17 @@ router.delete('/delete/:id', async (req, res) => {
 });
 
 export default router;
+router.put('/update/:id', async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      const { name, quantity } = req.body; // Get the new name and quantity from the request body
+      const updatedItem = await updateItem(id, { name, quantity });
+      res.status(200).json(updatedItem);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Internal server error' });
+    }
+  });
   router.get('/get', async (req, res) => {
     try {
       const items = await getItems();
