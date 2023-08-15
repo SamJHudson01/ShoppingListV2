@@ -27,7 +27,16 @@ export const deleteItem = async (id: number): Promise<void> => {
         throw new Error('Failed to delete item'); // This will allow your Express error handler to catch the error
     }
 };
+export const updateItem = async (id: number, item: { name: string; quantity: number; }): Promise<ShoppingListItem> => {
+    const { name, quantity } = item;
+    const result = await pool.query(
+        `UPDATE shopping_list_items SET name = $1, quantity = $2 WHERE id = $3 RETURNING *`,
+        [name, quantity, id]
+    );
+
+    if (result.rows.length === 0) {
+        throw new Error('Item not found'); // Or handle this case differently
     }
-  };
-  
-  
+
+    return result.rows[0];
+};

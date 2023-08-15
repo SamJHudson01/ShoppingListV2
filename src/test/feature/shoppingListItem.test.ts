@@ -53,6 +53,36 @@ it('should delete a shopping list item', async () => {
     expect(result.rows.length).toEqual(0); // Expect no matching rows since the item was deleted
 });
 
+it('should update a shopping list item', async () => {
+    // First, add a new item to the database
+    const newItem = {
+        name: 'Apples',
+        quantity: 3,
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+    };
+
+    const addRes = await request(app).post('/api/shopping-list/add').send(newItem);
+    const itemId = addRes.body.id; // Assuming the ID is included in the response
+
+    // Then, update the item by ID
+    const updatedItem = {
+        name: 'Green Apples',
+        quantity: 5,
+    };
+    const updateRes = await request(app).put(`/api/shopping-list/update/${itemId}`).send(updatedItem);
+    expect(updateRes.status).toEqual(200); // Check for a successful response status
+    expect(updateRes.body.name).toEqual(updatedItem.name); // Check for updated name
+    expect(updateRes.body.quantity).toEqual(updatedItem.quantity); // Check for updated quantity
+
+    // Query the database directly to ensure the item was updated
+    const result = await pool.query(`SELECT * FROM shopping_list_items WHERE id = $1`, [itemId]);
+    expect(result.rows.length).toEqual(1); // Expect exactly one matching row
+    expect(result.rows[0].name).toEqual(updatedItem.name); // Expect updated name in the database
+    expect(result.rows[0].quantity).toEqual(updatedItem.quantity); // Expect updated quantity in the database
+});
+
+
 
 describe('Add shopping list item', () => {
     afterAll(async () => {
