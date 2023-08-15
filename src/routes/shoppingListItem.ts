@@ -1,5 +1,5 @@
 import express from 'express';
-import { addItem, deleteItem } from '../../src/models/shoppingListItemDAO';
+import { addItem, deleteItem, updateItem, getItems } from '../../src/models/shoppingListItemDAO';
 
 const router = express.Router();
 
@@ -25,3 +25,13 @@ router.delete('/delete/:id', async (req, res) => {
 });
 
 export default router;
+  router.get('/get', async (req, res) => {
+    try {
+      const items = await getItems();
+      res.status(200).json(items);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Internal server error' });
+    }
+  }
+    );
