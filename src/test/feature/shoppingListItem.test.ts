@@ -5,23 +5,23 @@ import app from '../../index'
 
 it('should get all shopping list items', async () => {
     // Add two new items to the database
-    const item1 = {
-        name: 'Apples',
+    const expectedItem1 = {
+        name: "Apples",
         quantity: 3,
-        createdat: '2023-08-15T23:00:49.688Z',
-        updatedat: '2023-08-15T23:00:49.688Z'
-    };
-    
-    const item2 = {
-        name: 'Pears',
+        createdat: new Date().toISOString(),
+        updatedat: new Date().toISOString(),
+      };
+      
+      const expectedItem2 = {
+        name: "Pears",
         quantity: 5,
-        createdat: '2023-08-15T23:00:49.688Z',
-        updatedat: '2023-08-15T23:00:49.688Z'
-    };
+        createdat: new Date().toISOString(),
+        updatedat: new Date().toISOString(),
+      };
     
 
-    await request(app).post('/api/shopping-list/add').send(item1);
-    await request(app).post('/api/shopping-list/add').send(item2);
+    await request(app).post('/api/shopping-list/add').send(expectedItem1);
+    await request(app).post('/api/shopping-list/add').send(expectedItem2);
 
     // Fetch all items
     const getRes = await request(app).get('/api/shopping-list/get');
@@ -30,15 +30,18 @@ it('should get all shopping list items', async () => {
 
     // Check that the two items exist in the response
     const items = getRes.body;
-    expect(items).toEqual(expect.arrayContaining([expect.objectContaining(item1), expect.objectContaining(item2)]));
+    expect(items).toEqual(expect.arrayContaining([
+        expect.objectContaining(expectedItem1), 
+        expect.objectContaining(expectedItem2)
+      ]));
 });
 it('should delete a shopping list item', async () => {
     // First, add a new item to the database
     const newItem = {
         name: 'Oranges',
         quantity: 4,
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString(),
+        createdat: new Date().toISOString(),
+        updatedat: new Date().toISOString(),
     };
 
     const addRes = await request(app).post('/api/shopping-list/add').send(newItem);
@@ -58,8 +61,8 @@ it('should update a shopping list item', async () => {
     const newItem = {
         name: 'Apples',
         quantity: 3,
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString(),
+        createdat: new Date().toISOString(),
+        updatedat: new Date().toISOString(),
     };
 
     const addRes = await request(app).post('/api/shopping-list/add').send(newItem);
@@ -93,8 +96,8 @@ describe('Add shopping list item', () => {
         const newItem = {
             name: 'Bananas',
             quantity: 5,
-            createdAt: new Date().toISOString(),
-            updatedAt: new Date().toISOString(),
+            createdat: new Date().toISOString(),
+            updatedat: new Date().toISOString(),
         };
 
         const res = await request(app).post('/api/shopping-list/add').send(newItem);
