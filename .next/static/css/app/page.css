@@ -1,0 +1,34 @@
+/*!**************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[5].oneOf[12].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[5].oneOf[12].use[3]!./src/components/AddItemForm/AddItemForm.css ***!
+  \**************************************************************************************************************************************************************************************************************************************************************************************/
+.add-item-form {
+    display: flex;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+}
+
+.add-item-form__input {
+    width: 80%;
+    background-color: transparent;
+    border: 2px solid #4E4FEB;
+    border-radius: 5px 0 0 5px;
+    padding-left: 10px;
+    min-height: 40px;
+}
+
+.add-item-form__button {
+    width: 20%;
+    background-image: linear-gradient(to right, #4E4FEB, #068FFF);
+    border: none;
+    border-radius: 0 5px 5px 0;
+    color: #fff;
+    font-size: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+/*!*****************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[5].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[5].oneOf[7].use[3]!./src/app/page.module.css ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************/
+
