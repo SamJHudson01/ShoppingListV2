@@ -1,3 +1,5 @@
+'use client'
+
 import React from 'react';
 import './ShoppingListItem.css'
 import { ShoppingListItem as ShoppingListItemProps } from '../../interfaces/ShoppingListItemInterface';
