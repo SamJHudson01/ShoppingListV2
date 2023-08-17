@@ -1,0 +1,19 @@
+.shopping-list-item {
+    height: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #ccc; /* optional border to visualize the box */
+    padding: 0 10px; /* optional padding */
+  }
+  
+  .shopping-list-item__name {
+    flex: 1;
+    text-align: left;
+  }
+  
+  .shopping-list-item__quantity {
+    flex: 1;
+    text-align: right;
+  }
+  

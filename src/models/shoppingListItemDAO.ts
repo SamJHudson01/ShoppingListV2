@@ -1,5 +1,5 @@
 import pool from '../db';
-import { ShoppingListItem } from '../../src/interfaces/ShoppingListItem';
+import { ShoppingListItem } from '../interfaces/ShoppingListItemInterface';
 
 
 export const getItems = async (): Promise<ShoppingListItem[]> => {
