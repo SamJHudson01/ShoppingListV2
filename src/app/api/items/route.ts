@@ -11,7 +11,7 @@ export const GET = async (request) => {
 }
 
 export const POST = async (request) => {
-    const { name: itemName } = await request.json() // Read the name from the request body
+    const { name: itemName } = await request.json() 
     const newItem: NewShoppingListItem = {
         name: itemName,
         quantity: 1, 
@@ -25,14 +25,14 @@ export const POST = async (request) => {
 }
 
 export const DEL = async (request) => {
-    const { id } = request.query; // Read the ID from the query parameters
+    const { id } = request.query; 
   
     try {
-      await deleteItem(Number(id)); // Make sure to convert the ID to a number
-      return new NextResponse('Item deleted successfully'); // Send a success response
+      await deleteItem(Number(id));
+      return new NextResponse('Item deleted successfully'); 
     } catch (error) {
       console.error('Error deleting item:', error);
-      return new NextResponse('Failed to delete item', { status: 500 }); // Send an error response
+      return new NextResponse('Failed to delete item', { status: 500 }); 
     }
   };
   
