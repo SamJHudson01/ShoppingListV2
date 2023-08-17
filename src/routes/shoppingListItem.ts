@@ -24,7 +24,6 @@ router.delete('/delete/:id', async (req, res) => {
   }
 });
 
-export default router;
 router.put('/update/:id', async (req, res) => {
     try {
       const id = parseInt(req.params.id);
@@ -46,3 +45,5 @@ router.put('/update/:id', async (req, res) => {
     }
   }
     );
+
+export default router;
