@@ -3,7 +3,7 @@
 import './AddItemForm.css'
 
 
-export default function AddItemForm() {
+export default function AddItemForm({onUpdate}) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -26,6 +26,8 @@ export default function AddItemForm() {
     const result = await response.json();
     console.log(result);
     input.value = '';
+    console.log('calling on update')
+    onUpdate();
   }
   
   

@@ -11,10 +11,10 @@ export const GET = async (request) => {
 }
 
 export const POST = async (request) => {
-    const { name: itemName } = await request.json() 
+    const { name: itemName } = await request.json()
     const newItem: NewShoppingListItem = {
         name: itemName,
-        quantity: 1, 
+        quantity: 1,
         createdat: new Date(),
         updatedat: new Date(),
     };
@@ -24,15 +24,4 @@ export const POST = async (request) => {
     return new NextResponse(JSON.stringify(addedItem))
 }
 
-export const DEL = async (request) => {
-    const { id } = request.query; 
-  
-    try {
-      await deleteItem(Number(id));
-      return new NextResponse('Item deleted successfully'); 
-    } catch (error) {
-      console.error('Error deleting item:', error);
-      return new NextResponse('Failed to delete item', { status: 500 }); 
-    }
-  };
-  
+
