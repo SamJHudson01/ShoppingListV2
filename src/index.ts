@@ -1,5 +1,5 @@
 import express from 'express';
-import shoppingListRouter from '../src/routes/shoppingListItem'; // Adjust the path as needed
+import shoppingListRouter from './routes/shoppingListItem'; // Adjust the path as needed
 import bodyParser from 'body-parser';
 
 const app = express();
@@ -11,3 +11,4 @@ app.use(bodyParser.json());
 app.use('/api/shopping-list', shoppingListRouter);
 
 export default app;
+
