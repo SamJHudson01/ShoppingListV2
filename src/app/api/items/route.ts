@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server"
 import { getItems, addItem } from "../../../models/shoppingListItemDAO"
-import { ShoppingListItem } from "../../../interfaces/ShoppingListItem";
+import { ShoppingListItem } from "../../../interfaces/ShoppingListItemInterface";
 
 type NewShoppingListItem = Omit<ShoppingListItem, "id" | "completedat">
 
