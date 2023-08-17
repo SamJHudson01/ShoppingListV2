@@ -24,4 +24,3 @@ export const POST = async (request) => {
     return new NextResponse(JSON.stringify(addedItem))
 }
 
-

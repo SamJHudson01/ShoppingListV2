@@ -23,13 +23,28 @@ function ShoppingList() {
 
   useEffect(() => {
     fetchItems();
-  }, [items]); 
+  }, []); 
+
+  const handleDelete = async (id) => {
+    const idString = id.toString();
+    console.log(idString)
+    try {
+      const response = await fetch(`/api/items/${idString}`, { method: 'DELETE' });
+      if (!response.ok) {
+        throw new Error('Failed to delete item');
+      }
+      fetchItems()
+    } catch (error) {
+      console.log('An error occurred when trying to delete this item:', error);
+    }
+  };
+  
 
   return (
     <main className='shopping-list'>
 
 
-      <AddItemForm />
+      <AddItemForm onUpdate={fetchItems}/>
 
 
       <div className="shopping-list__item-container">
@@ -42,6 +57,7 @@ function ShoppingList() {
             completedat={new Date(item.completedat)}
             updatedat={new Date(item.updatedat)}
             id={item.id}
+            onDelete={handleDelete}
           />
         ))}
       </div>
