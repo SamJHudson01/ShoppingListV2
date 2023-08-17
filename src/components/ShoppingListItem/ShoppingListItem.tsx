@@ -16,6 +16,7 @@ function ShoppingListItem({
     <div className="shopping-list-item">
       <p className="shopping-list-item__name">{name}</p>
       <p className="shopping-list-item__quantity">{quantity ? quantity.toString() : '0'}</p>
+      <button className="shopping-list-item__delete-button">Delete</button>
     </div>
   );
 }
