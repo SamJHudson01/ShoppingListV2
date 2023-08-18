@@ -12,10 +12,9 @@ function ShoppingList() {
 
   const fetchItems = async () => {
     try {
-      const response = await fetch('/api/items');
+      const response = await fetch('/api/items', {cache: "no-store"});
       const data = await response.json();
       setItems(data);
-      console.log(data);
     } catch (error) {
       console.error('An error occurred while fetching the items:', error);
     }
@@ -27,9 +26,8 @@ function ShoppingList() {
 
   const handleDelete = async (id) => {
     const idString = id.toString();
-    console.log(idString)
     try {
-      const response = await fetch(`/api/items/${idString}`, { method: 'DELETE' });
+      const response = await fetch(`/api/items/${idString}`, { method: 'DELETE' })
       if (!response.ok) {
         throw new Error('Failed to delete item');
       }

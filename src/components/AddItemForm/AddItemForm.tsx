@@ -9,12 +9,7 @@ export default function AddItemForm({onUpdate}) {
     e.preventDefault();
     const input = e.target.querySelector('input');
     const value = input.value;
-    console.log(value);
-  
-    // Create an object to send in the request body
     const data = { name: value };
-  
-    // Send a POST request to your endpoint
     const response = await fetch('/api/items', {
       method: 'POST',
       headers: {
@@ -24,9 +19,7 @@ export default function AddItemForm({onUpdate}) {
     });
   
     const result = await response.json();
-    console.log(result);
     input.value = '';
-    console.log('calling on update')
     onUpdate();
   }
   

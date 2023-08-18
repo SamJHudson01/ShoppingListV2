@@ -4,9 +4,8 @@ import { ShoppingListItem } from "../../../interfaces/ShoppingListItemInterface"
 
 type NewShoppingListItem = Omit<ShoppingListItem, "id" | "completedat">
 
-export const GET = async (request) => {
+export const GET = async () => {
     const allItems = await getItems()
-
     return new NextResponse(JSON.stringify(allItems))
 }
 
