@@ -1,5 +1,5 @@
 import pool from '../db';
-import { ShoppingListItem } from '../../src/interfaces/ShoppingListItem';
+import { ShoppingListItem } from '../interfaces/ShoppingListItemInterface';
 
 
 export const getItems = async (): Promise<ShoppingListItem[]> => {
@@ -7,11 +7,11 @@ export const getItems = async (): Promise<ShoppingListItem[]> => {
     return result.rows;
 };
 
-export const addItem = async (item: Omit<ShoppingListItem, 'id' | 'completedAt'>): Promise<ShoppingListItem> => {
-    const { name, quantity, createdAt, updatedAt } = item;
+export const addItem = async (item: Omit<ShoppingListItem, 'id' | 'completedat'>): Promise<ShoppingListItem> => {
+    const { name, quantity, createdat, updatedat } = item;
     const result = await pool.query(
-        `INSERT INTO shopping_list_items (name, quantity, createdAt, updatedAt) VALUES ($1, $2, $3, $4) RETURNING *`,
-        [name, quantity, createdAt, updatedAt]
+        `INSERT INTO shopping_list_items (name, quantity, createdat, updatedat) VALUES ($1, $2, $3, $4) RETURNING *`,
+        [name, quantity, createdat, updatedat]
     );
     return result.rows[0];
 };
