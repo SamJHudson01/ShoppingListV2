@@ -1,68 +1,65 @@
-'use client'
+"use client";
 
-import React, { useState, useEffect } from 'react'
-import AddItemForm from '../AddItemForm/AddItemForm'
-import './ShoppingList.css'
-import ShoppingListItem from '../ShoppingListItem/ShoppingListItem'
-
-
+import React, { useState, useEffect, Suspense } from "react";
+import AddItemForm from "../AddItemForm/AddItemForm";
+import "./ShoppingList.css";
+import ShoppingListItem from "../ShoppingListItem/ShoppingListItem";
+import AddItemButton from "../AddItemButton/AddItemButton";
 
 function ShoppingList() {
-  const [items, setItems] = useState([])
+  const [items, setItems] = useState([]);
 
   const fetchItems = async () => {
     try {
-      const response = await fetch('/api/items', {cache: "no-store"});
+      const response = await fetch("/api/items", { cache: "no-store" });
       const data = await response.json();
-      setItems(data);
+      setItems(data.sort((a, b) => b.id - a.id));
     } catch (error) {
-      console.error('An error occurred while fetching the items:', error);
+      console.error("An error occurred while fetching the items:", error);
     }
   };
 
   useEffect(() => {
     fetchItems();
-  }, []); 
+  }, []);
 
   const handleDelete = async (id) => {
     const idString = id.toString();
     try {
-      const response = await fetch(`/api/items/${idString}`, { method: 'DELETE' })
+      const response = await fetch(`/api/items/${idString}`, {
+        method: "DELETE",
+      });
       if (!response.ok) {
-        throw new Error('Failed to delete item');
+        throw new Error("Failed to delete item");
       }
-      fetchItems()
+      fetchItems();
     } catch (error) {
-      console.log('An error occurred when trying to delete this item:', error);
+      console.log("An error occurred when trying to delete this item:", error);
     }
   };
-  
 
   return (
-    <main className='shopping-list'>
-
-
-      <AddItemForm onUpdate={fetchItems}/>
-
-
-      <div className="shopping-list__item-container">
-        {items.map(item => (
-          <ShoppingListItem
-            key={item.id} // This is the added key prop
-            name={item.name}
-            quantity={item.quantity}
-            createdat={new Date(item.createdat)}
-            completedat={new Date(item.completedat)}
-            updatedat={new Date(item.updatedat)}
-            id={item.id}
-            onDelete={handleDelete}
-          />
-        ))}
-      </div>
-
-
+    <main className="shopping-list">
+      <AddItemButton />
+      <AddItemForm onUpdate={fetchItems} />
+      <Suspense fallback={<div className="suspense">Loading the page... </div>}>
+        <div className="shopping-list__item-container">
+          {items.map((item) => (
+            <ShoppingListItem
+              key={item.id} // This is the added key prop
+              name={item.name}
+              quantity={item.quantity}
+              createdat={new Date(item.createdat)}
+              completedat={new Date(item.completedat)}
+              updatedat={new Date(item.updatedat)}
+              id={item.id}
+              onDelete={handleDelete}
+            />
+          ))}
+        </div>
+      </Suspense>
     </main>
-  )
+  );
 }
 
-export default ShoppingList
+export default ShoppingList;
