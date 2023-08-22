@@ -5,9 +5,11 @@ import AddItemForm from "../AddItemForm/AddItemForm";
 import "./ShoppingList.css";
 import ShoppingListItem from "../ShoppingListItem/ShoppingListItem";
 import AddItemButton from "../AddItemButton/AddItemButton";
+import AddItemModal from "../AddItemModal/AddItemModal";
 
 function ShoppingList() {
   const [items, setItems] = useState([]);
+  const [showModal, setShowModal] = useState(false);
 
   const fetchItems = async () => {
     try {
@@ -17,6 +19,14 @@ function ShoppingList() {
     } catch (error) {
       console.error("An error occurred while fetching the items:", error);
     }
+  };
+
+  const openModal = () => {
+    setShowModal(true);
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
   };
 
   useEffect(() => {
@@ -40,8 +50,8 @@ function ShoppingList() {
 
   return (
     <main className="shopping-list">
-      <AddItemButton />
-      <AddItemForm onUpdate={fetchItems} />
+      <AddItemButton openModal={openModal} />
+      {/* <AddItemForm onUpdate={fetchItems} /> */}
       <Suspense fallback={<div className="suspense">Loading the page... </div>}>
         <div className="shopping-list__item-container">
           {items.map((item) => (
@@ -54,10 +64,14 @@ function ShoppingList() {
               updatedat={new Date(item.updatedat)}
               id={item.id}
               onDelete={handleDelete}
+              onUpdate={fetchItems}
             />
           ))}
         </div>
       </Suspense>
+      {showModal && (
+        <AddItemModal onCloseModal={closeModal} onUpdate={fetchItems} />
+      )}
     </main>
   );
 }
