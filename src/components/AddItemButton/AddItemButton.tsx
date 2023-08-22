@@ -3,10 +3,10 @@ import "./AddItemButton.css";
 import addIcon from "../../images/Add-28px.svg";
 import Image from "next/image";
 
-const AddItemButton = () => {
+const AddItemButton = ({ openModal }) => {
   return (
     <div className="add-item-button-container">
-      <button className="add-item-button">
+      <button className="add-item-button" onClick={openModal}>
         <Image
           className="add-item-button-add-icon"
           src={addIcon}
