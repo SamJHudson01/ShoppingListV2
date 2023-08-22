@@ -2,11 +2,19 @@
   margin-bottom: 10px;
   height: 40px;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
-  border-bottom: 1px solid #ccc;
+  box-shadow: rgba(0, 0, 0, 0.05) 1px 1px 2px 1px;
+  border-radius: 5px;
   padding: 0 10px;
-  border-left: #ff9f0a 15px solid;
+}
+
+.shopping-list-item__category-circle {
+  width: 15px;
+  height: 15px;
+  margin-right: 10px;
+  border-radius: 100%;
+  background-color: #ff9f0a;
 }
 
 .shopping-list-item__name {
@@ -15,5 +23,20 @@
 
 .shopping-list-item__quantity {
   text-align: right;
+  margin-right: 10px;
+}
+
+.shopping-list-item__delete-button {
   margin-left: auto;
+  border: none;
+  cursor: pointer;
+  width: 22px;
+  height: 22px;
+  background-color: transparent;
+}
+
+.shopping-list-item__delete-icon {
+  width: 100%;
+  height: 100%;
+  color: #3c3c43;
 }
