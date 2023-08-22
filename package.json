@@ -21,6 +21,7 @@
       "node-pg-migrate": "^6.2.2",
       "react": "18.2.0",
       "react-dom": "18.2.0",
+      "react-icons": "^4.10.1",
       "reflect-metadata": "^0.1.13",
       "supertest": "^6.3.3",
       "typescript": "5.1.6",
