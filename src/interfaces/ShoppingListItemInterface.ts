@@ -1,8 +1,8 @@
 export interface ShoppingListItem {
-    id: number;
-    name: string;
-    quantity: number;
-    completedat?: Date;
-    createdat: Date;
-    updatedat: Date;
-  }
+  id: number;
+  name: string;
+  quantity: number;
+  completedat?: Date | null;
+  createdat: Date;
+  updatedat: Date;
+}

@@ -1,33 +1,63 @@
-import React from 'react';
-import './ShoppingListItem.css';
-import { ShoppingListItem as ShoppingListItemProps } from '../../interfaces/ShoppingListItemInterface';
+import React from "react";
+import "./ShoppingListItem.css";
+import { ShoppingListItem as ShoppingListItemProps } from "../../interfaces/ShoppingListItemInterface";
+import { RiDeleteBinFill } from "react-icons/ri";
+
+import { on } from "events";
 
 interface ShoppingListItemPropsWithDelete extends ShoppingListItemProps {
-    onDelete: (id: number) => void;
-    
+  onDelete: (id: number) => void;
+  onUpdate: () => void;
 }
 
 function ShoppingListItem({
-    id,
-    name,
-    quantity,
-    completedat,
-    createdat,
-    updatedat,
-    onDelete,
-    
+  id,
+  name,
+  quantity,
+  completedat,
+  createdat,
+  updatedat,
+  onDelete,
+  onUpdate,
 }: ShoppingListItemPropsWithDelete) {
-    return (
-        <div className="shopping-list-item">
-            <p className="shopping-list-item__name">{name}</p>
-            <p className="shopping-list-item__quantity">{quantity ? quantity.toString() : '0'}</p>
-            <button
-                className="shopping-list-item__delete-button"
-                onClick={() => onDelete(id)} >
-                Delete
-            </button>
-        </div>
-    );
+  async function handleToggleCompleted(id) {
+    const response = await fetch(`/api/items/${id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+    });
+
+    if (!response.ok) {
+      console.error("An error occurred:", response.statusText);
+      return;
+    }
+
+    try {
+      const data = await response.json();
+      console.log("Data:", data);
+      return data;
+    } catch (err) {
+      console.error("Failed to parse JSON:", err);
+    }
+  }
+
+  return (
+    <div
+      className="shopping-list-item"
+      onClick={() => handleToggleCompleted(id)}
+    >
+      <div className="shopping-list-item__category-circle"></div>
+      <p className="shopping-list-item__quantity">
+        {quantity ? quantity.toString() : "0"}
+      </p>
+      <p className="shopping-list-item__name">{name}</p>
+      <button
+        className="shopping-list-item__delete-button"
+        onClick={() => onDelete(id)}
+      >
+        <RiDeleteBinFill className="shopping-list-item__delete-icon" />
+      </button>
+    </div>
+  );
 }
 
 export default ShoppingListItem;
