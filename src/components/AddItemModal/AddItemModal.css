@@ -1,0 +1,116 @@
+.modal__overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
+  z-index: 4;
+}
+
+.modal__container {
+  box-sizing: border-box;
+  position: fixed;
+  top: 37%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #ffffff;
+  border-radius: 20px;
+  padding-top: 34px;
+  padding-bottom: 28px;
+  padding-left: 36px;
+  padding-right: 36px;
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  z-index: 2;
+}
+
+.modal__form {
+  display: flex;
+  flex-direction: column;
+}
+
+.modal__close-button {
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  top: 20px;
+  right: 15px;
+  background: transparent url(../../images/modal_close_button.svg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  border: none;
+  cursor: pointer;
+}
+
+.modal__form-title {
+  font-family: "Outfit-regular", sans-serif;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 900;
+  line-height: normal;
+  margin-bottom: 22px;
+}
+
+.modal__input-label {
+  color: #2f71e5;
+  font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin: 0;
+}
+
+.modal__input {
+  font-size: 14px;
+  height: 25px;
+  font-family: "Outfit-regular", sans-serif;
+  color: black;
+  margin-bottom: 31px;
+  margin-top: 9px;
+  line-height: 1.21;
+  border-bottom: rgba(0, 0, 0, 0.2) 1px solid;
+  background-color: #ffffff;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+}
+
+.modal__email-input {
+  margin-bottom: 3px;
+}
+
+.modal__input:focus {
+  outline: none;
+}
+
+.modal__submit-button {
+  box-sizing: border-box;
+  width: 180px;
+  height: 40px;
+  margin-top: 8px;
+  border-radius: 5px;
+  background: #2f71e5;
+  box-shadow: 0px 5px 15px 0px rgba(14, 26, 57, 0.2);
+  margin-left: auto;
+  margin-right: auto;
+  border: none;
+  cursor: pointer;
+  color: #fff;
+  text-align: center;
+  font-family: "Outfit-regular", sans-serif;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px;
+}
+
+.modal__submit-button_disabled {
+  background-color: #e6e8eb;
+  color: #b6bcbf;
+  box-shadow: none;
+  cursor: not-allowed;
+}
