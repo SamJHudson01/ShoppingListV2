@@ -1,19 +1,19 @@
 .shopping-list-item {
-    height: 30px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border: 1px solid #ccc; /* optional border to visualize the box */
-    padding: 0 10px; /* optional padding */
-  }
-  
-  .shopping-list-item__name {
-    flex: 1;
-    text-align: left;
-  }
-  
-  .shopping-list-item__quantity {
-    flex: 1;
-    text-align: right;
-  }
-  
+  margin-bottom: 10px;
+  height: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #ccc;
+  padding: 0 10px;
+  border-left: #ff9f0a 15px solid;
+}
+
+.shopping-list-item__name {
+  text-align: left;
+}
+
+.shopping-list-item__quantity {
+  text-align: right;
+  margin-left: auto;
+}
