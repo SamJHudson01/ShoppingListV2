@@ -6,10 +6,13 @@ import "./ShoppingList.css";
 import ShoppingListItem from "../ShoppingListItem/ShoppingListItem";
 import AddItemButton from "../AddItemButton/AddItemButton";
 import AddItemModal from "../AddItemModal/AddItemModal";
+import { add } from "winston";
+import EditItemModal from "../EditItemModal/EditItemModal";
 
 function ShoppingList() {
   const [items, setItems] = useState([]);
-  const [showModal, setShowModal] = useState(false);
+  const [activeModal, setActiveModal] = useState(null);
+  const [selectedItem, setSelectedItem] = useState(null);
 
   const fetchItems = async () => {
     try {
@@ -21,12 +24,17 @@ function ShoppingList() {
     }
   };
 
-  const openModal = () => {
-    setShowModal(true);
+  const openAddItemModal = () => {
+    setActiveModal("addItemModal");
+  };
+
+  const openEditModal = (item) => {
+    setSelectedItem(item);
+    setActiveModal("editItemModal");
   };
 
   const closeModal = () => {
-    setShowModal(false);
+    setActiveModal(null);
   };
 
   useEffect(() => {
@@ -42,6 +50,7 @@ function ShoppingList() {
       if (!response.ok) {
         throw new Error("Failed to delete item");
       }
+      console.log(response);
       fetchItems();
     } catch (error) {
       console.log("An error occurred when trying to delete this item:", error);
@@ -50,7 +59,7 @@ function ShoppingList() {
 
   return (
     <main className="shopping-list">
-      <AddItemButton openModal={openModal} />
+      <AddItemButton openModal={openAddItemModal} />
       {/* <AddItemForm onUpdate={fetchItems} /> */}
       <Suspense fallback={<div className="suspense">Loading the page... </div>}>
         <div className="shopping-list__item-container">
@@ -60,17 +69,25 @@ function ShoppingList() {
               name={item.name}
               quantity={item.quantity}
               createdat={new Date(item.createdat)}
-              completedat={new Date(item.completedat)}
+              completedat={item.completedat ? new Date(item.completedat) : null}
               updatedat={new Date(item.updatedat)}
               id={item.id}
               onDelete={handleDelete}
               onUpdate={fetchItems}
+              onEdit={openEditModal}
             />
           ))}
         </div>
       </Suspense>
-      {showModal && (
+      {activeModal == "addItemModal" && (
         <AddItemModal onCloseModal={closeModal} onUpdate={fetchItems} />
+      )}
+      {activeModal == "editItemModal" && (
+        <EditItemModal
+          onCloseModal={closeModal}
+          onUpdate={fetchItems}
+          item={selectedItem}
+        />
       )}
     </main>
   );
