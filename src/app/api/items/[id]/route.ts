@@ -1,14 +1,21 @@
 import {
   deleteItem,
   updateItemCompletion,
+  updateItem,
 } from "../../../../models/shoppingListItemDAO"; // Adjust the path to your deleteItem function
 import { NextResponse } from "next/server";
+
+type UpdateRequestBody = {
+  name?: string;
+  quantity?: number;
+  completed?: boolean;
+  toggleCompleted?: boolean;
+};
 
 export async function DELETE(
   request: Request,
   { params }: { params: { id: string } }
 ) {
-  console.log("trying to delete stuff and stuff");
   const id = params.id;
   try {
     await deleteItem(Number(id));
@@ -23,13 +30,22 @@ export async function PUT(
   request: Request,
   { params }: { params: { id: string } }
 ) {
-  console.log("trying to update stuff and stuff");
   const id = Number(params.id);
+  const { name, quantity, completed, toggleCompleted } =
+    (await request.json()) as UpdateRequestBody;
+
   try {
-    const updatedItem = await updateItemCompletion(id);
+    let updatedItem;
+
+    if (toggleCompleted) {
+      updatedItem = await updateItemCompletion(id);
+    } else {
+      updatedItem = await updateItem(id, { name, quantity });
+    }
+
     return new Response(JSON.stringify(updatedItem), { status: 200 });
   } catch (error) {
-    console.error("Error updating item completion:", error);
-    return new Response("Failed to update item completion", { status: 500 });
+    console.error("Error updating item:", error);
+    return new Response("Failed to update item", { status: 500 });
   }
 }
