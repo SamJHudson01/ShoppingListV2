@@ -9,6 +9,11 @@
   padding: 0 10px;
 }
 
+.shopping-list-item_completed {
+  background-color: #e8e8e8;
+  text-decoration: line-through;
+}
+
 .shopping-list-item__category-circle {
   width: 15px;
   height: 15px;

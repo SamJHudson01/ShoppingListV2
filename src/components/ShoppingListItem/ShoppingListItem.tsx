@@ -2,8 +2,6 @@ import React from "react";
 import "./ShoppingListItem.css";
 import { ShoppingListItem as ShoppingListItemProps } from "../../interfaces/ShoppingListItemInterface";
 import { RiDeleteBinFill } from "react-icons/ri";
-
-import { on } from "events";
 import { useLongPress } from "@uidotdev/usehooks";
 
 interface ShoppingListItemPropsWithDelete extends ShoppingListItemProps {
@@ -23,10 +21,13 @@ function ShoppingListItem({
   onUpdate,
   onEdit,
 }: ShoppingListItemPropsWithDelete) {
-  async function handleToggleCompleted(id) {
+  async function handleToggleCompleted(id, toggleCompleted = true) {
     const response = await fetch(`/api/items/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        toggleCompleted,
+      }),
     });
 
     if (!response.ok) {
@@ -37,6 +38,7 @@ function ShoppingListItem({
     try {
       const data = await response.json();
       console.log("Data:", data);
+      onUpdate();
       return data;
     } catch (err) {
       console.error("Failed to parse JSON:", err);
@@ -61,7 +63,6 @@ function ShoppingListItem({
 
   return (
     <div
-      className="shopping-list-item"
       {...attrs}
       className={`shopping-list-item ${
         completedat ? "shopping-list-item_completed" : ""
