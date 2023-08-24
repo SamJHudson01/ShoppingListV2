@@ -4,10 +4,12 @@ import { ShoppingListItem as ShoppingListItemProps } from "../../interfaces/Shop
 import { RiDeleteBinFill } from "react-icons/ri";
 
 import { on } from "events";
+import { useLongPress } from "@uidotdev/usehooks";
 
 interface ShoppingListItemPropsWithDelete extends ShoppingListItemProps {
   onDelete: (id: number) => void;
   onUpdate: () => void;
+  onEdit: (item: ShoppingListItemProps) => void;
 }
 
 function ShoppingListItem({
@@ -19,6 +21,7 @@ function ShoppingListItem({
   updatedat,
   onDelete,
   onUpdate,
+  onEdit,
 }: ShoppingListItemPropsWithDelete) {
   async function handleToggleCompleted(id) {
     const response = await fetch(`/api/items/${id}`, {
@@ -40,9 +43,29 @@ function ShoppingListItem({
     }
   }
 
+  const attrs = useLongPress(
+    () => {
+      onEdit({
+        id,
+        name,
+        quantity,
+        completedat,
+        createdat,
+        updatedat,
+      });
+    },
+    {
+      threshold: 500,
+    }
+  );
+
   return (
     <div
       className="shopping-list-item"
+      {...attrs}
+      className={`shopping-list-item ${
+        completedat ? "shopping-list-item_completed" : ""
+      }`}
       onClick={() => handleToggleCompleted(id)}
     >
       <div className="shopping-list-item__category-circle"></div>
